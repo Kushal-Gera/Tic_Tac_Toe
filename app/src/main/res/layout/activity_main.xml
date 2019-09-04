@@ -8,9 +8,10 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="#000"
@@ -20,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
         android:orientation="horizontal">
 
@@ -122,9 +123,10 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_margin="80dp"
+        android:textSize="18sp"
         android:background="@color/colorAccent"
         android:text="clear"
-        android:textColor="#FFF"
+        android:textColor="#000"
         tools:ignore="HardcodedText" />
 
 </LinearLayout>
