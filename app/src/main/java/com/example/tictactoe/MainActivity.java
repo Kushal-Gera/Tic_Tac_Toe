@@ -2,7 +2,9 @@ package com.example.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,10 +13,11 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9;
-    TextView title;
+    TextView header;
     String[][] arr = new String[3][3];
     Button[][] b_arr;
     boolean player1 = true;
+    boolean win = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,39 +38,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void markBoard() {
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
                 arr[i][j] = b_arr[i][j].getText().toString();
 
-
         checkForWin();
+
+        if (win){
+            header.setText("WIN WIN WIN !");
+            win = false;
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    header.setText("Tic Tac Toe");
+                    clear_all();
+                }
+            }, 2500);
+
+        }
 
     }
 
     private void checkForWin() {
 
+        for (int i = 0; i < 3; i++) {
+            //check for Horizontal rows
+            if (arr[i][0].equals(arr[i][1]) && arr[i][2].equals(arr[i][1]) &&!arr[i][0].equals("") ){
+                win = true;
+            }
 
+            //check for Vertical rows
+            if (arr[0][i].equals(arr[1][i]) && arr[2][i].equals(arr[1][i]) &&!arr[0][i].equals("") ){
+                win = true;
+                }
+            }
 
-//        if (win){
-//            title.setText("WIN WIN WIN !");
-//            clear_all();
-//            Handler handler = new Handler();
-//            handler.postAtTime(new Runnable() {
-//                @Override
-//                public void run() {
-//                    title.setText("Tic Tac Toe");
-//                }
-//            },2000);
-//
-//        }
+            //check for Diagonal 1
+            if (arr[0][0].equals(arr[1][1]) && arr[1][1].equals(arr[2][2]) &&!arr[1][1].equals("") ){
+                win = true;
+            }
+
+            //check for Diagonal 2
+            if (arr[0][2].equals(arr[1][1]) && arr[1][1].equals(arr[2][0]) &&!arr[1][1].equals("") ){
+                win = true;
+            }
 
 
     }
 
     private void setupbtn() {
-        title = findViewById(R.id.title);
+        header = findViewById(R.id.header);
 
         b1 = findViewById(R.id.btn1);   b2 = findViewById(R.id.btn2);   b3 = findViewById(R.id.btn3);
         b4 = findViewById(R.id.btn4);   b5 = findViewById(R.id.btn5);   b6 = findViewById(R.id.btn6);
@@ -83,8 +107,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 clear_all();
             }
         });
-
-
 
     }
 
