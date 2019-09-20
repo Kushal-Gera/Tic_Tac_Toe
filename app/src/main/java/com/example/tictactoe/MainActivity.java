@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b_arr = new Button[][]{{b1, b2, b3}, {b4, b5, b6}, {b7, b8, b9}};
 
 
-
-
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -48,17 +45,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkForWin();
 
         if (win){
+            for (int i = 0; i <3; i++)
+                for (int j = 0; j < 3; j++)
+                    b_arr[j][i].setEnabled(false);
+
             header.setText("WIN WIN WIN !");
             win = false;
+
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    header.setText("Tic Tac Toe");
                     clear_all();
                 }
             }, 2500);
-
         }
 
     }
@@ -111,11 +111,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void clear_all() {
+        header.setText("Tic Tac Toe");
 
         for (int i = 0; i <3; i++)
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < 3; j++) {
+                b_arr[j][i].setEnabled(true);
                 b_arr[j][i].setText("");
-
+            }
     }
 
     @Override
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             player1 = true;
 
         }
+        b.setEnabled(false);
         markBoard();
 
 
